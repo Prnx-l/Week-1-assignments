@@ -40,11 +40,48 @@ const jobs = [
     type: "contract",
   },
 ];
-function searchJobs(location) {
-  const filtered = jobs.filter((job) => job.location === location);
-  const sortedTitle = filtered.sort((a, b) => b.salary - a.salary);
-  const titles = sortedTitle.map((job) => job.title);
-  //   const filteredTitle = titles.sort((job) => job.salary);
-  return titles;
+// function searchJobs(location) {
+//   const filtered = jobs.filter((job) => job.location === location);
+//   const sortedTitle = filtered.sort((a, b) => b.salary - a.salary);
+//   const titles = sortedTitle.map((job) => job.title);
+//   //   const filteredTitle = titles.sort((job) => job.salary);
+//   return titles;
+// }
+// console.log(searchJobs("Kathmandu"));
+
+// function filterJObs(type, minSalary) {
+//   const filteredJobs = jobs.filter(
+//     (job) => job.type === type && job.salary > minSalary,
+//   );
+//   const mappedJobs = filteredJobs.map((job) => ({
+//     title: job.title,
+//     salary: job.salary,
+//   }));
+//   return mappedJobs;
+// }
+// console.log(filterJObs("fulltime", 55000));
+
+function avgSalaryByType() {
+  // function avgSalaryByType() {
+  //   const result = jobs.reduce((acc, job) => {
+  //     if (!acc[job.type]) {
+  //       acc[job.type] = 0; // create the key if it doesn't exist
+  //     }
+  //     acc[job.type] = acc[job.type] + 1; // count jobs
+  //     return acc;
+  //   }, {});
+  //   return result;
+  // }
+  // console.log(avgSalaryByType());
+
+  const result = jobs.reduce((type, job));
+  // { fulltime: 3, parttime: 1, contract: 1 }
+  // return an object like this:
+  // {
+  //   fulltime: 60000,
+  //   parttime: 40000,
+  //   contract: 55000
+  // }
 }
-console.log(searchJobs("Kathmandu"));
+
+console.log(avgSalaryByType());
