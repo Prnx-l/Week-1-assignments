@@ -61,27 +61,70 @@ const jobs = [
 // }
 // console.log(filterJObs("fulltime", 55000));
 
-function avgSalaryByType() {
-  // function avgSalaryByType() {
-  //   const result = jobs.reduce((acc, job) => {
-  //     if (!acc[job.type]) {
-  //       acc[job.type] = 0; // create the key if it doesn't exist
-  //     }
-  //     acc[job.type] = acc[job.type] + 1; // count jobs
-  //     return acc;
-  //   }, {});
-  //   return result;
-  // }
-  // console.log(avgSalaryByType());
+// function avgSalaryByType() {
+// function avgSalaryByType() {
+//   const result = jobs.reduce((acc, job) => {
+//     if (!acc[job.type]) {
+//       acc[job.type] = 0; // create the key if it doesn't exist
+//     }
+//     acc[job.type] = acc[job.type] + 1; // count jobs
+//     return acc;
+//   }, {});
+//   return result;
+// }
+// console.log(avgSalaryByType());
 
-  const result = jobs.reduce((type, job));
-  // { fulltime: 3, parttime: 1, contract: 1 }
-  // return an object like this:
-  // {
-  //   fulltime: 60000,
-  //   parttime: 40000,
-  //   contract: 55000
-  // }
+//   const result = jobs.reduce((type, job)=>{
+//   //   jobs.map(job=>{} )
+//   // });
+//   employees.reduce((acc, emp) => {
+
+//   )}};
+//   // { fulltime: 3, parttime: 1, contract: 1 }
+//   // return an object like this:
+//   // {
+//   //   fulltime: 60000,
+//   //   parttime: 40000,
+//   //   contract: 55000
+//   // }
+// }
+
+// console.log(avgSalaryByType());
+
+// const result = jobs.reduce((type, salary) =>
+//   //   jobs.map(job=>{} )
+//   // });
+//   jobs.reduce((acc, emp) => {}),
+// );
+// // { fulltime: 3, parttime: 1, coantract: 1 }
+// // return an object like this:
+// // {n
+// //   fulltime: 60000,
+// //   parttime: 40000,
+// //   contract: 55000
+// // }
+
+// console.log(avgSalaryByType());
+function avgSalaryByType() {
+  const result = jobs.reduce((acc, job) => {
+    if (!acc[job.type]) {
+      acc[job.type] = {
+        total: 0,
+        count: 0,
+      };
+    }
+
+    acc[job.type].total += job.salary;
+    acc[job.type].count++;
+
+    return acc;
+  }, {});
+
+  for (let type in result) {
+    result[type] = result[type].total / result[type].count;
+  }
+
+  return result;
 }
 
 console.log(avgSalaryByType());
