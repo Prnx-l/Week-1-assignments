@@ -195,46 +195,105 @@
 
 // export default App;
 
-import { useState } from "react";
+// import { useState } from "react";
+// import JobCard from "./JobCard";
+
+// const jobs = [
+//   {
+//     id: 1,
+//     title: "Frontend Developer",
+//     company: "Leapfrog",
+//     location: "Kathmandu",
+//     salary: 50000,
+//   },
+//   {
+//     id: 2,
+//     title: "Backend Developer",
+//     company: "Cotiviti",
+//     location: "Lalitpur",
+//     salary: 70000,
+//   },
+//   {
+//     id: 3,
+//     title: "React Developer",
+//     company: "CloudFactory",
+//     location: "Pokhara",
+//     salary: 60000,
+//   },
+// ];
+
+// function App() {
+//   const [search, setSearch] = useState("");
+
+//   const filteredJobs = jobs.filter((job) =>
+//     job.location.toLowerCase().includes(search.toLowerCase()),
+//   );
+
+//   return (
+//     <div>
+//       <h1>Nepal IT Jobs</h1>
+//       <input
+//         type="text"
+//         placeholder="Search by location..."
+//         value={search}
+//         onChange={(e) => setSearch(e.target.value)}
+//       />
+//       {filteredJobs.map((job) => (
+//         <JobCard
+//           key={job.id}
+//           title={job.title}
+//           company={job.company}
+//           location={job.location}
+//           salary={job.salary}
+//         />
+//       ))}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+import { useState, useEffect } from "react";
 import JobCard from "./JobCard";
 
-const jobs = [
-  {
-    id: 1,
-    title: "Frontend Developer",
-    company: "Leapfrog",
-    location: "Kathmandu",
-    salary: 50000,
-  },
-  {
-    id: 2,
-    title: "Backend Developer",
-    company: "Cotiviti",
-    location: "Lalitpur",
-    salary: 70000,
-  },
-  {
-    id: 3,
-    title: "React Developer",
-    company: "CloudFactory",
-    location: "Pokhara",
-    salary: 60000,
-  },
-];
-
 function App() {
+  const [jobs, setJobs] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchJobs() {
+      try {
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/posts",
+        );
+        const data = await response.json();
+        const firstTen = data.slice(0, 10);
+        setJobs(firstTen);
+        setLoading(false);
+      } catch (error) {
+        console.log("Error fetching jobs:", error);
+        setLoading(false);
+      }
+    }
+
+    fetchJobs();
+  }, []);
 
   const filteredJobs = jobs.filter((job) =>
-    job.location.toLowerCase().includes(search.toLowerCase()),
+    job.title.toLowerCase().includes(search.toLowerCase()),
   );
+
+  if (loading) {
+    return <h2>Loading jobs...</h2>;
+  }
 
   return (
     <div>
       <h1>Nepal IT Jobs</h1>
       <input
         type="text"
-        placeholder="Search by location..."
+        placeholder="Search by title..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -242,9 +301,9 @@ function App() {
         <JobCard
           key={job.id}
           title={job.title}
-          company={job.company}
-          location={job.location}
-          salary={job.salary}
+          company="Unknown Company"
+          location="Kathmandu"
+          salary={50000}
         />
       ))}
     </div>
